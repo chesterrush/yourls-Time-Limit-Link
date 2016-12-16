@@ -55,20 +55,9 @@ function stm_redirect_shorturl($args ){
 				$stm_time_link_content = $row['content'];
 			}
 			
-			$stm_arr_content = json_decode($stm_time_link_content,true);
-		
-			
-		// Update click count in main table
-			$update_clicks = yourls_update_clicks( $stm_keyword );
-
-		// Update detailed log for stats
-			$log_redirect = yourls_log_redirect( $stm_keyword );
-			
-			#$arr_content['referrer'] = "http://bild.de";
-			
+			$stm_arr_content = json_decode($stm_time_link_content,true);	
 						
 			$stm_url = $stm_arr_content['referrer'];
-		
 			
 			if(isset($stm_url) && !empty(stm_url)){
 				
