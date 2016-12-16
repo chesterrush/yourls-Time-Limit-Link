@@ -173,7 +173,7 @@ function stm_get_call( $args  ) {
 		
 		
 		$stm_json_string = stripslashes($_REQUEST['content']);
-		$stm_json_string = mysqli_real_escape_string($con,$stm_json_string);
+		$stm_json_string = mysqli_real_escape_string($con_stm,$stm_json_string);
 		
 		#echo "<<--- <br>\n";
 		$stm_sql = "INSERT INTO " . YOURLS_DB_PREFIX . "link_info (`id`, `key`, `content`, `type`) VALUES (NULL, '" . $args[1]['url']['keyword'] . "', '" . $stm_json_string . "', 'json');";
