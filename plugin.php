@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Time limited Links with Fallback
-Plugin URI: http://ls.stefan-mies.com/stm-plugin/
+Plugin URI: https://github.com/chesterrush/yourls-Time-Limit-Link/
 Description: Transmit a Link with Fallback link and set a global valide time limited in minutes 
 Version: 1.0
 Author: Stefan Mies
