@@ -187,7 +187,7 @@ function stm_config_add_page_timelimit() {
 function stm_config_do_page_timelimit() {
 
 // Check if a form was submitted
-        if( $_POST[ 'submit' ] == 'Update value' ) {
+        if( isset($_POST[ 'submit' ]) ) {
           if( isset( $_POST['stm_time_limit'] ) )
             stm_config_update_option_timelimit( $_POST['stm_time_limit'], "stm_time_limit" );
 
@@ -201,7 +201,41 @@ function stm_config_do_page_timelimit() {
           }
         }
 			
+	// Create MySQL Connection
+		$con_stm=new mysqli(YOURLS_DB_HOST, YOURLS_DB_USER , YOURLS_DB_PASS, YOURLS_DB_NAME);
+	
+		if($stm_con->connect_errno > 0){
+			die('Unable to connect to database [' . $con_stm->connect_error . ']');
+		}
+		
+		
+	// Check Info Table exists and create table if not exists
+		$stm_sql = "SHOW TABLES LIKE '" . YOURLS_DB_PREFIX . "link_info'";
+		if(!$stm_result = $con_stm->query($stm_sql)){
+			die('There was an error running the query [' . $con_stm->error . ']');
+		}
+		
+		$table_exists = $stm_result->num_rows > 0;
+		
+		#$stm_result->free();
+		
+		if(!$table_exists){
+			$stm_sql = "CREATE TABLE IF NOT EXISTS `" . YOURLS_DB_PREFIX . "link_info` (
+				`id` int(11) NOT NULL AUTO_INCREMENT,
+				`key` varchar(200) NOT NULL,
+				`content` longtext NOT NULL,
+				`type` varchar(4) NOT NULL,
+				PRIMARY KEY (`id`),
+				KEY `key` (`key`)) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+		
+			if(!$stm_result = $con_stm->query($stm_sql)){
+				die('There was an error running the query [' . $con_stm->error . ']');
+			}
 			
+			#$stm_result->free();
+		}
+	
+	
         // Get value from database
         $stm_time_limit = yourls_get_option( 'stm_time_limit' );
 		$stm_time_limit_fallback = yourls_get_option( 'stm_time_limit_fallback' );
