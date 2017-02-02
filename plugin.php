@@ -59,7 +59,7 @@ function stm_redirect_shorturl($args ){
 						
 			$stm_url = $stm_arr_content['referrer'];
 			
-			if(isset($stm_url) && !empty(stm_url)){
+			if(isset($stm_url) && !empty($stm_url)){
 				
 				/*if($stm_time_limit_no_forward == "on"){
 					$stm_ch = curl_init();
